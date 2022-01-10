@@ -1,4 +1,5 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { fieldValidation } from './utils';
 
 const RatingInfo = ({}) => {
   const [userInfo, setUserInfo] = useState({
@@ -10,10 +11,16 @@ const RatingInfo = ({}) => {
     region: '',
     postal: '',
   });
+  const [validForm, setValidForm] = useState(true);
 
   const handleSubmit = (e) => {
     e.preventDefault();
   };
+
+  useEffect(() => {
+    let status = fieldValidation(userInfo);
+    setValidForm(status);
+  }, [userInfo]);
 
   return (
     <div>
@@ -67,7 +74,9 @@ const RatingInfo = ({}) => {
             }
           />
         </div>
-        <button onClick={handleSubmit}>Request Quotes</button>
+        <button disabled={validForm} onClick={handleSubmit}>
+          Request Quotes
+        </button>
       </form>
     </div>
   );
