@@ -15,6 +15,30 @@ const RatingInfo = ({}) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    let url = `https://fed-challenge-api.sure.now.sh/api/v1/quotes`;
+
+    let body = {
+      first_name: userInfo.first_name,
+      last_name: userInfo.last_name,
+      address: {
+        line_1: userInfo.line_1,
+        line_2: userInfo.line_2,
+        city: userInfo.city,
+        region: userInfo.region,
+        postal: userInfo.postal,
+      },
+    };
+
+    fetch(url, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(body),
+    })
+      .then((res) => res.json())
+      .then((data) => console.log(data))
+      .catch((err) => console.error(err));
   };
 
   useEffect(() => {
