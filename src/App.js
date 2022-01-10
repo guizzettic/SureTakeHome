@@ -1,7 +1,12 @@
 import './App.css';
+import RatingInfo from './RatingInfo';
 
 function App() {
-  return <div className="App">EHLLO</div>;
+  return (
+    <div>
+      <RatingInfo />
+    </div>
+  );
 }
 
 export default App;
