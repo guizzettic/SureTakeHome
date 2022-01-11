@@ -10,3 +10,11 @@ export const fieldValidation = (userInfo) => {
     return false;
   else return true;
 };
+
+export const numberWithCommas = (x) => {
+  return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+};
+
+export function capitalizeFirstLetter(string) {
+  return string.charAt(0).toUpperCase() + string.slice(1);
+}

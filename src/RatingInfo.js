@@ -14,6 +14,7 @@ const RatingInfo = () => {
   });
   const [validForm, setValidForm] = useState(true);
   const [policyInfo, setPolicyInfo] = useState(null);
+  const [showDialog, setShowDialog] = useState(false);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -39,46 +40,10 @@ const RatingInfo = () => {
       body: JSON.stringify(body),
     })
       .then((res) => res.json())
-      .then((data) => setPolicyInfo(data.quote))
-      .catch((err) => console.error(err));
-  };
-
-  const handleUpdate = (e) => {
-    e.preventDefault();
-    let url = `https://fed-challenge-api.sure.now.sh/api/v1/quotes/${policyInfo.quoteId}`;
-
-    const updatedQuoteBody = JSON.stringify({
-      quote: {
-        quoteId: policyInfo.quoteId,
-        rating_address: {
-          line_1: userInfo.line_1,
-          line_2: userInfo.line_2,
-          city: userInfo.city,
-          region: userInfo.region,
-          postal: userInfo.postal,
-        },
-        policy_holder: {
-          first_name: userInfo.first_name,
-          last_name: userInfo.last_name,
-        },
-        variable_selections: {
-          deductible: parseInt(
-            policyInfo.variable_options.deductible.values[1]
-          ),
-          asteroid_collision: parseInt(
-            policyInfo.variable_options.asteroid_collision.values[1]
-          ),
-        },
-      },
-    });
-
-    fetch(url, {
-      method: 'PUT',
-      headers: { 'Content-Type': 'application/json' },
-      body: updatedQuoteBody,
-    })
-      .then((res) => res.json())
-      .then((data) => console.log(data.quote.premium))
+      .then((data) => {
+        setPolicyInfo(data.quote);
+        setShowDialog(true);
+      })
       .catch((err) => console.error(err));
   };
 
@@ -139,17 +104,20 @@ const RatingInfo = () => {
             }
           />
         </div>
-        <button
-          disabled={validForm}
-          onClick={policyInfo ? handleUpdate : handleSubmit}
-        >
+        <button disabled={validForm} onClick={handleSubmit}>
           {policyInfo ? 'Update Quotes' : 'Request Quotes'}
         </button>
       </form>
-      {policyInfo && (
+      {showDialog && (
         <div>
           <p>premium is: {policyInfo.premium}</p>
-          <QuoteInfo policyInfo={policyInfo} userInfo={userInfo} />
+          <QuoteInfo
+            policyInfo={policyInfo}
+            setPolicyInfo={setPolicyInfo}
+            userInfo={userInfo}
+            showDialog={showDialog}
+            setShowDialog={setShowDialog}
+          />
         </div>
       )}
     </div>
