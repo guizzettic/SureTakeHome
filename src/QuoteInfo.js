@@ -8,7 +8,14 @@ import Slide from '@mui/material/Slide';
 import { capitalizeFirstLetter, numberWithCommas } from './utils';
 
 import { useState } from 'react';
-import { Select, MenuItem, InputLabel, FormControl } from '@mui/material';
+import {
+  Select,
+  MenuItem,
+  InputLabel,
+  FormControl,
+  Popover,
+  Typography,
+} from '@mui/material';
 
 const QuoteInfo = ({
   policyInfo,
@@ -18,10 +25,20 @@ const QuoteInfo = ({
   setShowDialog,
 }) => {
   const [open, setOpen] = useState(showDialog);
-  const [hover, setHover] = useState(false);
+  const [anchorEl, setAnchorEl] = useState(null);
+
+  const modalOpen = Boolean(anchorEl);
 
   const handleClose = () => {
     setShowDialog(false);
+  };
+
+  const onHover = (e) => {
+    setAnchorEl(e.currentTarget);
+  };
+
+  const onLeave = () => {
+    setAnchorEl(null);
   };
 
   const handleUpdate = (e) => {
@@ -84,13 +101,36 @@ const QuoteInfo = ({
               role="img"
               style={{ marginTop: '-4px' }}
               aria-label="question-mark"
+              onMouseEnter={onHover}
+              onMouseLeave={onLeave}
             >
               ❓
             </span>
 
+            <Popover
+              open={modalOpen}
+              anchorEl={anchorEl}
+              sx={{
+                pointerEvents: 'none',
+              }}
+              anchorOrigin={{
+                vertical: 'bottom',
+                horizontal: 'left',
+              }}
+              transformOrigin={{
+                vertical: 'top',
+                horizontal: 'left',
+              }}
+            >
+              <Typography>
+                The amount of money you will pay in an insurance claim before
+                the insurance coverage kicks in.
+              </Typography>
+            </Popover>
+
             <FormControl sx={{ m: 1, minWidth: 120 }}>
               <InputLabel>Deductible</InputLabel>
-              <Select label="$500" defaultValue={500}>
+              <Select label="$500" defaultValue={500} onChange={handleUpdate}>
                 {policyInfo.variable_options.deductible.values.map(
                   (amt, key) => (
                     <MenuItem key={key} value={amt}>
@@ -107,13 +147,40 @@ const QuoteInfo = ({
               role="img"
               aria-label="question-mark"
               style={{ marginTop: '-4px' }}
+              onMouseEnter={onHover}
+              onMouseLeave={onLeave}
             >
               ❓
             </span>
 
+            <Popover
+              open={modalOpen}
+              anchorEl={anchorEl}
+              sx={{
+                pointerEvents: 'none',
+              }}
+              anchorOrigin={{
+                vertical: 'bottom',
+                horizontal: 'left',
+              }}
+              transformOrigin={{
+                vertical: 'top',
+                horizontal: 'left',
+              }}
+            >
+              <Typography>
+                The maximum amount covered for damages caused by asteroid
+                collisions.
+              </Typography>
+            </Popover>
+
             <FormControl sx={{ m: 1, minWidth: 120 }}>
               <InputLabel>Limit</InputLabel>
-              <Select label="$100,000" defaultValue={100000}>
+              <Select
+                label="$100,000"
+                defaultValue={100000}
+                onChange={handleUpdate}
+              >
                 {policyInfo.variable_options.asteroid_collision.values.map(
                   (amt, key) => (
                     <MenuItem key={key} value={amt}>
