@@ -6,12 +6,12 @@ import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import Slide from '@mui/material/Slide';
 import { capitalizeFirstLetter, numberWithCommas } from './utils';
+import questionMark from '../src/questionMark.png';
 
 import { useState } from 'react';
 import {
   Select,
   MenuItem,
-  InputLabel,
   FormControl,
   Popover,
   Typography,
@@ -95,18 +95,16 @@ const QuoteInfo = ({
             Below find details on different options to calculate your personal
             annaul premium for rocket insurance
           </DialogContentText>
-          <div style={{ display: 'flex' }}>
+          <div style={{ display: 'flex', marginTop: 15 }}>
             <DialogContentText>Deductible</DialogContentText>
-            <span
-              role="img"
-              style={{ marginTop: '-4px' }}
+
+            <img
+              src={questionMark}
               aria-label="question-mark"
               onMouseEnter={onHover}
               onMouseLeave={onLeave}
-            >
-              ❓
-            </span>
-
+              style={{ height: 18, marginLeft: '10px' }}
+            />
             <Popover
               open={modalOpen}
               anchorEl={anchorEl}
@@ -128,9 +126,13 @@ const QuoteInfo = ({
               </Typography>
             </Popover>
 
-            <FormControl sx={{ m: 1, minWidth: 120 }}>
-              <InputLabel>Deductible</InputLabel>
-              <Select label="$500" defaultValue={500} onChange={handleUpdate}>
+            <FormControl sx={{ m: '2px 5px', minWidth: 120 }}>
+              <Select
+                label="$500"
+                defaultValue={500}
+                onChange={handleUpdate}
+                sx={{ height: 50, ml: 4, mt: -1.5 }}
+              >
                 {policyInfo.variable_options.deductible.values.map(
                   (amt, key) => (
                     <MenuItem key={key} value={amt}>
@@ -141,17 +143,16 @@ const QuoteInfo = ({
               </Select>
             </FormControl>
           </div>
-          <div style={{ display: 'flex' }}>
+
+          <div style={{ display: 'flex', marginTop: 15 }}>
             <DialogContentText>Asteroid Collision Limit</DialogContentText>
-            <span
-              role="img"
+            <img
+              src={questionMark}
               aria-label="question-mark"
-              style={{ marginTop: '-4px' }}
               onMouseEnter={onHover}
               onMouseLeave={onLeave}
-            >
-              ❓
-            </span>
+              style={{ height: 18, marginLeft: '10px' }}
+            />
 
             <Popover
               open={modalOpen}
@@ -174,12 +175,12 @@ const QuoteInfo = ({
               </Typography>
             </Popover>
 
-            <FormControl sx={{ m: 1, minWidth: 120 }}>
-              <InputLabel>Limit</InputLabel>
+            <FormControl sx={{ m: '2px 5px', minWidth: 120 }}>
               <Select
                 label="$100,000"
                 defaultValue={100000}
                 onChange={handleUpdate}
+                sx={{ height: 50, ml: 4, mt: -1.5 }}
               >
                 {policyInfo.variable_options.asteroid_collision.values.map(
                   (amt, key) => (
