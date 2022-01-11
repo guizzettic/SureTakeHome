@@ -265,7 +265,7 @@ const QuoteInfo = ({
               onClick={handleClose}
               sx={{ borderRadius: 3 }}
             >
-              Edit Information
+              Go Back
             </Button>
             <Button
               variant="outlined"
