@@ -26,6 +26,11 @@ const QuoteInfo = ({
 }) => {
   const [open, setOpen] = useState(showDialog);
   const [anchorEl, setAnchorEl] = useState(null);
+  const [policySelections, setPolicySelections] = useState({
+    deductible: policyInfo.variable_options.deductible.values[0],
+    asteroid_collision:
+      policyInfo.variable_options.asteroid_collision.values[0],
+  });
 
   const modalOpen = Boolean(anchorEl);
 
@@ -60,12 +65,8 @@ const QuoteInfo = ({
           last_name: userInfo.last_name,
         },
         variable_selections: {
-          deductible: parseInt(
-            policyInfo.variable_options.deductible.values[1]
-          ),
-          asteroid_collision: parseInt(
-            policyInfo.variable_options.asteroid_collision.values[1]
-          ),
+          deductible: parseInt(policySelections.deductible),
+          asteroid_collision: parseInt(policySelections.asteroid_collision),
         },
       },
     });
@@ -130,7 +131,15 @@ const QuoteInfo = ({
               <Select
                 label="$500"
                 defaultValue={500}
-                onChange={handleUpdate}
+                onChange={(e) => {
+                  setPolicySelections(
+                    {
+                      ...policySelections,
+                      deductible: e.target.value,
+                    },
+                    handleUpdate(e)
+                  );
+                }}
                 sx={{ height: 50, ml: 4, mt: -1.5 }}
               >
                 {policyInfo.variable_options.deductible.values.map(
@@ -179,7 +188,15 @@ const QuoteInfo = ({
               <Select
                 label="$100,000"
                 defaultValue={100000}
-                onChange={handleUpdate}
+                onChange={(e) => {
+                  setPolicySelections(
+                    {
+                      ...policySelections,
+                      asteroid_collision: e.target.value,
+                    },
+                    handleUpdate(e)
+                  );
+                }}
                 sx={{ height: 50, ml: 4, mt: -1.5 }}
               >
                 {policyInfo.variable_options.asteroid_collision.values.map(
@@ -192,6 +209,9 @@ const QuoteInfo = ({
               </Select>
             </FormControl>
           </div>
+          <DialogContentText>
+            Annual Premium Insurance: ${numberWithCommas(policyInfo.premium)}
+          </DialogContentText>
         </DialogContent>
         <DialogActions>
           <Button onClick={handleClose}>Cancel Quote</Button>
