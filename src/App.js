@@ -3,7 +3,13 @@ import RatingInfo from './RatingInfo';
 
 function App() {
   return (
-    <div>
+    <div
+      style={{
+        height: '100vh',
+        width: '100vw',
+        backgroundColor: 'lightskyblue',
+      }}
+    >
       <RatingInfo />
     </div>
   );

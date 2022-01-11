@@ -1,6 +1,21 @@
 import { useState, useEffect } from 'react';
-import { fieldValidation } from './utils';
 import QuoteInfo from './QuoteInfo';
+import { makeStyles } from '@mui/styles';
+import { Button } from '@mui/material';
+import UserInfoForm from './components/UserInfoForm';
+
+const useStyles = makeStyles({
+  container: {
+    width: 550,
+    margin: '0 auto',
+    paddingTop: 100,
+  },
+  pageTitle: {
+    position: 'absolute',
+    top: 0,
+    left: 30,
+  },
+});
 
 const RatingInfo = () => {
   const [userInfo, setUserInfo] = useState({
@@ -12,9 +27,11 @@ const RatingInfo = () => {
     region: '',
     postal: '',
   });
+
   const [validForm, setValidForm] = useState(true);
   const [policyInfo, setPolicyInfo] = useState(null);
   const [showDialog, setShowDialog] = useState(false);
+  const classes = useStyles();
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -47,67 +64,21 @@ const RatingInfo = () => {
       .catch((err) => console.error(err));
   };
 
-  useEffect(() => {
-    let status = fieldValidation(userInfo);
-    setValidForm(status);
-  }, [userInfo]);
-
   return (
-    <div>
-      <form>
-        <input
-          placeholder="First Name.."
-          value={userInfo.first_name}
-          onChange={(e) =>
-            setUserInfo({ ...userInfo, first_name: e.target.value })
-          }
-        />
-        <input
-          placeholder="Last Name.."
-          value={userInfo.last_name}
-          onChange={(e) =>
-            setUserInfo({ ...userInfo, last_name: e.target.value })
-          }
-        />
-        <div>
-          <input
-            placeholder="Street Address"
-            value={userInfo.line_1}
-            onChange={(e) =>
-              setUserInfo({ ...userInfo, line_1: e.target.value })
-            }
-          />
-          <input
-            placeholder="Apartment, suite, etc."
-            value={userInfo.line_2}
-            onChange={(e) =>
-              setUserInfo({ ...userInfo, line_2: e.target.value })
-            }
-          />
-          <input
-            placeholder="City"
-            value={userInfo.city}
-            onChange={(e) => setUserInfo({ ...userInfo, city: e.target.value })}
-          />
-          <input
-            placeholder="State"
-            value={userInfo.region}
-            onChange={(e) =>
-              setUserInfo({ ...userInfo, region: e.target.value })
-            }
-          />
-          <input
-            placeholder="Postal Code"
-            value={userInfo.postal}
-            onChange={(e) =>
-              setUserInfo({ ...userInfo, postal: e.target.value })
-            }
-          />
-        </div>
-        <button disabled={validForm} onClick={handleSubmit}>
-          {policyInfo ? 'Update Quotes' : 'Request Quotes'}
-        </button>
-      </form>
+    <div className={classes.container}>
+      <h1 className={classes.pageTitle}>
+        Welcome to Sure's new state of the art Rocket Insurance 🚀
+      </h1>
+      <UserInfoForm
+        userInfo={userInfo}
+        setUserInfo={setUserInfo}
+        handleSubmit={handleSubmit}
+        showDialog={showDialog}
+        policyInfo={policyInfo}
+        validForm={validForm}
+        setValidForm={setValidForm}
+      />
+
       {showDialog && (
         <div>
           <p>premium is: {policyInfo.premium}</p>
