@@ -1,7 +1,15 @@
 import { Button, TextField } from '@mui/material';
 import { makeStyles } from '@mui/styles';
 import { useEffect, useState } from 'react';
-import { fieldValidation } from '../utils';
+import {
+  fieldValidation,
+  verifyName,
+  verifyStreet,
+  verifyCity,
+  verifyRegion,
+  verifyPostal,
+  validInfo,
+} from '../utils';
 
 const useStyles = makeStyles({
   buttons: {
@@ -10,6 +18,7 @@ const useStyles = makeStyles({
   form: {
     display: 'flex',
     flexDirection: 'column',
+    flexShrink: 1,
     height: 150,
     width: 500,
     justifyContent: 'space-between',
@@ -42,7 +51,6 @@ const useStyles = makeStyles({
     borderRadius: 18,
   },
 });
-
 const UserInfoForm = ({ userInfo, setUserInfo, handleSubmit, policyInfo }) => {
   const [validForm, setValidForm] = useState(true);
   const classes = useStyles();
@@ -61,8 +69,11 @@ const UserInfoForm = ({ userInfo, setUserInfo, handleSubmit, policyInfo }) => {
         <TextField
           variant="standard"
           required
-          error={userInfo.first_name !== '' && userInfo.first_name.length < 3}
-          // helperText={userInfo.first_name}
+          helperText={
+            verifyName(userInfo.first_name)
+              ? ''
+              : 'Please enter full first name'
+          }
           placeholder="First Name.."
           value={userInfo.first_name}
           onChange={(e) =>
@@ -72,6 +83,9 @@ const UserInfoForm = ({ userInfo, setUserInfo, handleSubmit, policyInfo }) => {
         <TextField
           variant="standard"
           required
+          helperText={
+            verifyName(userInfo.last_name) ? '' : 'Please enter full last name'
+          }
           placeholder="Last Name.."
           value={userInfo.last_name}
           onChange={(e) =>
@@ -84,6 +98,11 @@ const UserInfoForm = ({ userInfo, setUserInfo, handleSubmit, policyInfo }) => {
             variant="standard"
             required
             placeholder="Street Address"
+            helperText={
+              verifyStreet(userInfo.line_1)
+                ? ''
+                : 'Please enter your street address'
+            }
             value={userInfo.line_1}
             fullWidth
             onChange={(e) =>
@@ -104,6 +123,9 @@ const UserInfoForm = ({ userInfo, setUserInfo, handleSubmit, policyInfo }) => {
               variant="standard"
               required
               placeholder="City"
+              helperText={
+                verifyCity(userInfo.city) ? '' : 'Enter valid city name'
+              }
               value={userInfo.city}
               className={classes.city}
               onChange={(e) =>
@@ -114,6 +136,7 @@ const UserInfoForm = ({ userInfo, setUserInfo, handleSubmit, policyInfo }) => {
               variant="standard"
               required
               placeholder="State"
+              helperText={verifyRegion(userInfo.region) ? '' : 'State abbr.'}
               value={userInfo.region}
               className={classes.state}
               onChange={(e) =>
@@ -124,6 +147,10 @@ const UserInfoForm = ({ userInfo, setUserInfo, handleSubmit, policyInfo }) => {
               variant="standard"
               required
               placeholder="Postal Code"
+              type="number"
+              helperText={
+                verifyPostal(userInfo.postal) ? '' : 'Enter postal code'
+              }
               value={userInfo.postal}
               className={classes.postal}
               onChange={(e) =>
@@ -138,13 +165,9 @@ const UserInfoForm = ({ userInfo, setUserInfo, handleSubmit, policyInfo }) => {
           className={classes.buttons}
           disabled={validForm}
           onClick={handleSubmit}
-          sx={{
-            borderRadius: 3,
-            height: 35,
-            marginTop: 3,
-          }}
+          sx={validInfo(userInfo)}
         >
-          Request Quotes
+          Request Quote
         </Button>
       </form>
     </div>

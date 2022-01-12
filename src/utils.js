@@ -18,3 +18,43 @@ export const numberWithCommas = (x) => {
 export function capitalizeFirstLetter(string) {
   return string.charAt(0).toUpperCase() + string.slice(1);
 }
+
+export const verifyName = (name) => {
+  if (name !== '' && name.length < 3) return false;
+  else return true;
+};
+
+export const verifyStreet = (street) => {
+  if (street !== '' && street.length < 5) return false;
+  else return true;
+};
+
+export const verifyCity = (city) => {
+  if (city !== '' && city.length < 4) return false;
+  else return true;
+};
+
+export const verifyRegion = (region) => {
+  if (region !== '' && region.length !== 2) return false;
+  else return true;
+};
+
+export const verifyPostal = (postal) => {
+  if (postal !== '' && postal.length !== 5) return false;
+  else return true;
+};
+
+export const validInfo = (userInfo) => {
+  if (
+    !verifyRegion(userInfo.region) ||
+    !verifyPostal(userInfo.postal) ||
+    !verifyCity(userInfo.city)
+  )
+    return { borderRadius: 3, height: 35, marginTop: 0.1 };
+  else
+    return {
+      borderRadius: 3,
+      height: 35,
+      marginTop: 3,
+    };
+};

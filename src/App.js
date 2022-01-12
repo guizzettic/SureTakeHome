@@ -5,7 +5,7 @@ import UserInfoForm from './components/UserInfoForm';
 
 const useStyles = makeStyles({
   container: {
-    width: 550,
+    width: '50%',
     margin: '0 auto',
     paddingTop: 100,
   },
@@ -71,7 +71,7 @@ const App = () => {
     <div className={classes.body}>
       <div className={classes.container}>
         <h1 className={classes.pageTitle}>
-          Welcome to Sure's new state of the art Rocket Insurance 🚀
+          Welcome to Sures new state of the art Rocket Insurance 🚀
         </h1>
         <UserInfoForm
           userInfo={userInfo}
@@ -87,6 +87,7 @@ const App = () => {
             userInfo={userInfo}
             showDialog={showDialog}
             setShowDialog={setShowDialog}
+            setUserInfo={setUserInfo}
           />
         )}
       </div>

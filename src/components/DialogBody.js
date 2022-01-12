@@ -36,23 +36,16 @@ const useStyles = makeStyles({
 });
 
 const DialogBody = ({
-  showDialog,
   policyInfo,
-  setShowDialog,
   handleUpdate,
   policySelections,
   setPolicySelections,
 }) => {
-  const [open, setOpen] = useState(showDialog);
   const [anchorEl, setAnchorEl] = useState({ deductible: null, limit: null });
   const classes = useStyles();
 
   const modalOpenDeductible = Boolean(anchorEl.deductible);
   const modalOpenLimit = Boolean(anchorEl.limit);
-
-  const handleClose = () => {
-    setShowDialog(false);
-  };
 
   const onHover = (e, modal) => {
     if (modal === 'deductible') {
@@ -72,8 +65,8 @@ const DialogBody = ({
   return (
     <div>
       <DialogContentText className={classes.pageDescription}>
-        Below find details on different options to calculate your personal
-        annual premium for rocket insurance:
+        Below you'll find details on different options to calculate your
+        personal annual premium for rocket insurance:
       </DialogContentText>
       <div style={{ display: 'flex', marginTop: 25 }}>
         <DialogContentText>Deductible</DialogContentText>

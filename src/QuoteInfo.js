@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import Button from '@mui/material/Button';
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
@@ -26,8 +26,8 @@ const QuoteInfo = ({
   userInfo,
   showDialog,
   setShowDialog,
+  setUserInfo,
 }) => {
-  const [open, setOpen] = useState(showDialog);
   const [policySelections, setPolicySelections] = useState({
     deductible: policyInfo.variable_options.deductible.values[0],
     asteroid_collision:
@@ -40,10 +40,6 @@ const QuoteInfo = ({
   const handleClose = () => {
     setShowDialog(false);
   };
-
-  useEffect(() => {
-    handleUpdate();
-  }, [policySelections]);
 
   const handleUpdate = () => {
     let url = `https://fed-challenge-api.sure.now.sh/api/v1/quotes/${policyInfo.quoteId}`;
@@ -82,10 +78,23 @@ const QuoteInfo = ({
       .catch((err) => console.error(err));
   };
 
+  const handleSubmitPolicy = () => {
+    setUserInfo({
+      first_name: '',
+      last_name: '',
+      line_1: '',
+      line_2: '',
+      city: '',
+      region: '',
+      postal: '',
+    });
+    setPolicySubmitted(true);
+  };
+
   return (
     <div>
       <Dialog
-        open={open}
+        open={showDialog}
         onClose={() => setShowDialog(false)}
         className={classes.dialogBox}
       >
@@ -130,10 +139,10 @@ const QuoteInfo = ({
             </Button>
             <Button
               variant="outlined"
-              onClick={() => setPolicySubmitted(true)}
+              onClick={handleSubmitPolicy}
               sx={{ borderRadius: 3 }}
             >
-              Submit Policy
+              Submit Quote
             </Button>
           </DialogActions>
         )}
