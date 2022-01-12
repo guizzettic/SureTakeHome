@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import DialogContentText from '@mui/material/DialogContentText';
-import { capitalizeFirstLetter, numberWithCommas } from '../utils';
+import { numberWithCommas } from '../utils';
 import questionMark from '../questionMark.png';
 
 import {
@@ -55,7 +55,6 @@ const DialogBody = ({
   };
 
   const onHover = (e, modal) => {
-    console.log('modal is: ', modal === 'deductible');
     if (modal === 'deductible') {
       setAnchorEl({ ...anchorEl, deductible: e.currentTarget });
     } else if (modal === 'limit')

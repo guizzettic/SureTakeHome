@@ -50,7 +50,7 @@ const UserInfoForm = ({ userInfo, setUserInfo, handleSubmit, policyInfo }) => {
   useEffect(() => {
     let status = fieldValidation(userInfo);
     setValidForm(status);
-  }, [userInfo]);
+  }, [userInfo, setValidForm]);
 
   return (
     <div className={classes.formBody}>
