@@ -43,18 +43,3 @@ export const verifyPostal = (postal) => {
   if (postal !== '' && postal.length !== 5) return false;
   else return true;
 };
-
-export const validInfo = (userInfo) => {
-  if (
-    !verifyRegion(userInfo.region) ||
-    !verifyPostal(userInfo.postal) ||
-    !verifyCity(userInfo.city)
-  )
-    return { borderRadius: 3, height: 35, marginTop: 0.1 };
-  else
-    return {
-      borderRadius: 3,
-      height: 35,
-      marginTop: 3,
-    };
-};
