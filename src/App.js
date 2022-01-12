@@ -1,7 +1,6 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import QuoteInfo from './QuoteInfo';
 import { makeStyles } from '@mui/styles';
-import { Button } from '@mui/material';
 import UserInfoForm from './components/UserInfoForm';
 
 const useStyles = makeStyles({
@@ -33,7 +32,6 @@ const App = () => {
     postal: '',
   });
 
-  const [validForm, setValidForm] = useState(true);
   const [policyInfo, setPolicyInfo] = useState(null);
   const [showDialog, setShowDialog] = useState(false);
   const classes = useStyles();
@@ -79,22 +77,17 @@ const App = () => {
           userInfo={userInfo}
           setUserInfo={setUserInfo}
           handleSubmit={handleSubmit}
-          showDialog={showDialog}
           policyInfo={policyInfo}
-          validForm={validForm}
-          setValidForm={setValidForm}
         />
 
         {showDialog && (
-          <div>
-            <QuoteInfo
-              policyInfo={policyInfo}
-              setPolicyInfo={setPolicyInfo}
-              userInfo={userInfo}
-              showDialog={showDialog}
-              setShowDialog={setShowDialog}
-            />
-          </div>
+          <QuoteInfo
+            policyInfo={policyInfo}
+            setPolicyInfo={setPolicyInfo}
+            userInfo={userInfo}
+            showDialog={showDialog}
+            setShowDialog={setShowDialog}
+          />
         )}
       </div>
     </div>

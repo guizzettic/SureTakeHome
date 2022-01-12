@@ -2,7 +2,6 @@ import { useState, useEffect } from 'react';
 import DialogContentText from '@mui/material/DialogContentText';
 import { capitalizeFirstLetter, numberWithCommas } from '../utils';
 import questionMark from '../questionMark.png';
-import questionMark2 from '../questionMark.png';
 
 import {
   Select,
@@ -14,16 +13,9 @@ import {
 import { makeStyles } from '@mui/styles';
 
 const useStyles = makeStyles({
-  dialogBox: {
-    backgroundColor: 'transparent',
-  },
   pageDescription: {
     paddingBottom: 4,
     marginTop: 3,
-  },
-  bodyContent: {
-    background: '#F8F0E3',
-    margin: '-2px 0 2px 0 ',
   },
   selectDropdown: {
     margin: '-2.5px 0 1px 10px',

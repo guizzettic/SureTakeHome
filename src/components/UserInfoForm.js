@@ -1,6 +1,6 @@
 import { Button, TextField } from '@mui/material';
 import { makeStyles } from '@mui/styles';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { fieldValidation } from '../utils';
 
 const useStyles = makeStyles({
@@ -43,15 +43,8 @@ const useStyles = makeStyles({
   },
 });
 
-const UserInfoForm = ({
-  userInfo,
-  setUserInfo,
-  handleSubmit,
-  validForm,
-  setValidForm,
-  showDialog,
-  policyInfo,
-}) => {
+const UserInfoForm = ({ userInfo, setUserInfo, handleSubmit, policyInfo }) => {
+  const [validForm, setValidForm] = useState(true);
   const classes = useStyles();
 
   useEffect(() => {
@@ -143,7 +136,7 @@ const UserInfoForm = ({
         <Button
           variant="outlined"
           className={classes.buttons}
-          disabled={validForm || showDialog}
+          disabled={validForm}
           onClick={handleSubmit}
           sx={{
             borderRadius: 3,

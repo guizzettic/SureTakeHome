@@ -5,38 +5,18 @@ import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
-// import Slide from '@mui/material/Slide';
 import { capitalizeFirstLetter } from './utils';
 import DialogBody from './components/DialogBody';
 
-import {
-  Select,
-  MenuItem,
-  FormControl,
-  Popover,
-  Typography,
-} from '@mui/material';
 import { makeStyles } from '@mui/styles';
 
 const useStyles = makeStyles({
   dialogBox: {
     backgroundColor: 'transparent',
   },
-  pageDescription: {
-    paddingBottom: 4,
-    marginTop: 3,
-  },
   bodyContent: {
     background: '#F8F0E3',
     margin: '-2px 0 2px 0 ',
-  },
-  selectDropdown: {
-    margin: '-2.5px 0 1px 10px',
-  },
-  questionModal: {
-    height: 18,
-    margin: '0 5px',
-    paddingTop: 2,
   },
 });
 
