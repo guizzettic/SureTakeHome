@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import DialogContentText from '@mui/material/DialogContentText';
 import { capitalizeFirstLetter, numberWithCommas } from '../utils';
 import questionMark from '../questionMark.png';
+import questionMark2 from '../questionMark.png';
 
 import {
   Select,
@@ -37,6 +38,9 @@ const useStyles = makeStyles({
     margin: '0 5px',
     paddingTop: 2,
   },
+  popover: {
+    backgroundColor: '#F8F0E3',
+  },
 });
 
 const DialogBody = ({
@@ -62,7 +66,8 @@ const DialogBody = ({
     console.log('modal is: ', modal === 'deductible');
     if (modal === 'deductible') {
       setAnchorEl({ ...anchorEl, deductible: e.currentTarget });
-    } else setAnchorEl({ ...anchorEl, limit: e.currentTarget });
+    } else if (modal === 'limit')
+      setAnchorEl({ ...anchorEl, limit: e.currentTarget });
   };
 
   const onLeave = () => {
@@ -72,19 +77,6 @@ const DialogBody = ({
   useEffect(() => {
     handleUpdate();
   }, [policySelections]);
-
-  console.log(
-    'anchorEl.deductible is: ',
-    anchorEl.deductible,
-    'and modalOpenDeductible is: ',
-    modalOpenDeductible
-  );
-  console.log(
-    'anchorEl.limit is: ',
-    anchorEl.limit,
-    'and modalOpenLimit is: ',
-    modalOpenLimit
-  );
 
   return (
     <div>
@@ -104,7 +96,7 @@ const DialogBody = ({
         />
         <Popover
           open={modalOpenDeductible}
-          anchorEl={anchorEl.limit}
+          anchorEl={anchorEl.deductible}
           sx={{
             pointerEvents: 'none',
           }}
@@ -117,7 +109,7 @@ const DialogBody = ({
             horizontal: 'left',
           }}
         >
-          <Typography>
+          <Typography className={classes.popover}>
             The amount of money you will pay in an insurance claim before the
             insurance coverage kicks in.
           </Typography>
@@ -164,12 +156,13 @@ const DialogBody = ({
             vertical: 'bottom',
             horizontal: 'left',
           }}
+          anchorPosition={{ top: 0, left: 0 }}
           transformOrigin={{
             vertical: 'top',
             horizontal: 'left',
           }}
         >
-          <Typography>
+          <Typography className={classes.popover}>
             The maximum amount covered for damages caused by asteroid
             collisions.
           </Typography>
