@@ -5,9 +5,9 @@ import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
-import Slide from '@mui/material/Slide';
-import { capitalizeFirstLetter, numberWithCommas } from './utils';
-import questionMark from '../src/questionMark.png';
+// import Slide from '@mui/material/Slide';
+import { capitalizeFirstLetter } from './utils';
+import DialogBody from './components/DialogBody';
 
 import {
   Select,
@@ -48,7 +48,6 @@ const QuoteInfo = ({
   setShowDialog,
 }) => {
   const [open, setOpen] = useState(showDialog);
-  const [anchorEl, setAnchorEl] = useState(null);
   const [policySelections, setPolicySelections] = useState({
     deductible: policyInfo.variable_options.deductible.values[0],
     asteroid_collision:
@@ -57,18 +56,9 @@ const QuoteInfo = ({
   const [policySubmitted, setPolicySubmitted] = useState(false);
 
   const classes = useStyles();
-  const modalOpen = Boolean(anchorEl);
 
   const handleClose = () => {
     setShowDialog(false);
-  };
-
-  const onHover = (e) => {
-    setAnchorEl(e.currentTarget);
-  };
-
-  const onLeave = () => {
-    setAnchorEl(null);
   };
 
   useEffect(() => {
@@ -126,123 +116,14 @@ const QuoteInfo = ({
 
         <DialogContent className={classes.bodyContent}>
           {!policySubmitted ? (
-            <>
-              <DialogContentText className={classes.pageDescription}>
-                Below find details on different options to calculate your
-                personal annual premium for rocket insurance:
-              </DialogContentText>
-              <div style={{ display: 'flex', marginTop: 25 }}>
-                <DialogContentText>Deductible</DialogContentText>
-
-                <img
-                  src={questionMark}
-                  aria-label="question-mark"
-                  onMouseEnter={onHover}
-                  onMouseLeave={onLeave}
-                  className={classes.questionModal}
-                />
-                <Popover
-                  open={modalOpen}
-                  anchorEl={anchorEl}
-                  sx={{
-                    pointerEvents: 'none',
-                  }}
-                  anchorOrigin={{
-                    vertical: 'bottom',
-                    horizontal: 'left',
-                  }}
-                  transformOrigin={{
-                    vertical: 'top',
-                    horizontal: 'left',
-                  }}
-                >
-                  <Typography>
-                    The amount of money you will pay in an insurance claim
-                    before the insurance coverage kicks in.
-                  </Typography>
-                </Popover>
-
-                <FormControl sx={{ minWidth: 120, paddingBottom: 2 }}>
-                  <Select
-                    defaultValue={500}
-                    onChange={(e) => {
-                      setPolicySelections({
-                        ...policySelections,
-                        deductible: e.target.value,
-                      });
-                    }}
-                    className={classes.selectDropdown}
-                    sx={{ height: 30 }}
-                  >
-                    {policyInfo.variable_options.deductible.values.map(
-                      (amt, key) => (
-                        <MenuItem key={key} value={amt}>
-                          ${numberWithCommas(amt)}
-                        </MenuItem>
-                      )
-                    )}
-                  </Select>
-                </FormControl>
-              </div>
-
-              <div style={{ display: 'flex', marginTop: 15 }}>
-                <DialogContentText>Asteroid Collision Limit</DialogContentText>
-                <img
-                  src={questionMark}
-                  aria-label="question-mark"
-                  onMouseEnter={onHover}
-                  onMouseLeave={onLeave}
-                  className={classes.questionModal}
-                />
-
-                <Popover
-                  open={modalOpen}
-                  anchorEl={anchorEl}
-                  sx={{
-                    pointerEvents: 'none',
-                  }}
-                  anchorOrigin={{
-                    vertical: 'bottom',
-                    horizontal: 'left',
-                  }}
-                  transformOrigin={{
-                    vertical: 'top',
-                    horizontal: 'left',
-                  }}
-                >
-                  <Typography>
-                    The maximum amount covered for damages caused by asteroid
-                    collisions.
-                  </Typography>
-                </Popover>
-
-                <FormControl sx={{ minWidth: 120, paddingBottom: 2 }}>
-                  <Select
-                    defaultValue={100000}
-                    onChange={(e) => {
-                      setPolicySelections({
-                        ...policySelections,
-                        asteroid_collision: e.target.value,
-                      });
-                    }}
-                    className={classes.selectDropdown}
-                    sx={{ height: 30 }}
-                  >
-                    {policyInfo.variable_options.asteroid_collision.values.map(
-                      (amt, key) => (
-                        <MenuItem key={key} value={amt}>
-                          ${numberWithCommas(amt)}
-                        </MenuItem>
-                      )
-                    )}
-                  </Select>
-                </FormControl>
-              </div>
-              <DialogContentText>
-                Annual Premium Insurance:
-                <strong>${numberWithCommas(policyInfo.premium)}</strong>
-              </DialogContentText>
-            </>
+            <DialogBody
+              showDialog={showDialog}
+              policyInfo={policyInfo}
+              setShowDialog={setShowDialog}
+              handleUpdate={handleUpdate}
+              policySelections={policySelections}
+              setPolicySelections={setPolicySelections}
+            />
           ) : (
             <DialogContentText>
               Thank you for submitting your Rocket Insurance request, expect an

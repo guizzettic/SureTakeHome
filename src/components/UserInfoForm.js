@@ -16,10 +16,6 @@ const useStyles = makeStyles({
     margin: '0 auto',
     paddingTop: 30,
   },
-  street: {
-    width: '98.3%',
-    marginTop: 3,
-  },
   city: {
     width: '52%',
   },
@@ -90,13 +86,13 @@ const UserInfoForm = ({
           }
         />
 
-        <div className={classes.addressField}>
+        <div>
           <TextField
             variant="standard"
             required
             placeholder="Street Address"
             value={userInfo.line_1}
-            className={classes.street}
+            fullWidth
             onChange={(e) =>
               setUserInfo({ ...userInfo, line_1: e.target.value })
             }
@@ -105,7 +101,7 @@ const UserInfoForm = ({
             variant="standard"
             placeholder="Apartment, suite, etc."
             value={userInfo.line_2}
-            className={classes.street}
+            fullWidth
             onChange={(e) =>
               setUserInfo({ ...userInfo, line_2: e.target.value })
             }
