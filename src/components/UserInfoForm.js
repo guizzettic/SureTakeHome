@@ -19,9 +19,11 @@ const useStyles = makeStyles({
   formBody: {
     backgroundColor: 'beige',
     borderRadius: 18,
+    width: '90%',
+    margin: '0 auto',
   },
 });
-const UserInfoForm = ({ userInfo, setUserInfo, handleSubmit, policyInfo }) => {
+const UserInfoForm = ({ userInfo, setUserInfo, handleSubmit }) => {
   const [validForm, setValidForm] = useState(true);
   const classes = useStyles();
 
@@ -31,7 +33,7 @@ const UserInfoForm = ({ userInfo, setUserInfo, handleSubmit, policyInfo }) => {
   }, [userInfo, setValidForm]);
 
   return (
-    <Grid xs={12} sm={12} lg={12} className={classes.formBody}>
+    <Grid xs={12} sm={10} md={7} lg={6} className={classes.formBody}>
       <h2 className={classes.title}>
         Please enter your information below to request a quote:
       </h2>
@@ -48,6 +50,7 @@ const UserInfoForm = ({ userInfo, setUserInfo, handleSubmit, policyInfo }) => {
             fullWidth
             variant="standard"
             required
+            value={userInfo.first_name}
             helperText={
               !verifyName(userInfo.first_name) && 'Please enter full first name'
             }

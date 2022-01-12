@@ -5,18 +5,16 @@ import UserInfoForm from './components/UserInfoForm';
 
 const useStyles = makeStyles({
   container: {
-    width: '50%',
+    width: '85%',
     margin: '0 auto',
-    paddingTop: 100,
+    paddingTop: 40,
   },
   pageTitle: {
-    position: 'absolute',
-    top: 0,
-    left: 30,
+    paddingBottom: 40,
+    textAlign: 'center',
   },
   body: {
     height: '100vh',
-    width: '100vw',
     backgroundColor: 'lightskyblue',
   },
 });
@@ -73,6 +71,7 @@ const App = () => {
         <h1 className={classes.pageTitle}>
           Welcome to Sures new state of the art Rocket Insurance 🚀
         </h1>
+
         <UserInfoForm
           userInfo={userInfo}
           setUserInfo={setUserInfo}
