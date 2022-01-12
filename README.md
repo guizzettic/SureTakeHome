@@ -27,6 +27,12 @@
 - Decided based on the application a more robust state management solution wasn't necessary as props were not passed down more than one level
 - Decided to use Material UI for it's ease of use/documentation and not having to recreate a lot of functionality
 
+## Things I'd work on next wtih more time:
+- Simplify/improve styling on DialogBody
+- Implement testing
+- Improve view on mobile devices
+- Improve on form validation UI
+
 ## How to run:
 - clone repository
 - run npm i
